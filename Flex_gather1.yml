@@ -1,0 +1,23 @@
+---
+- name: Gather Facts from Remote Device via Jump Server with AWX Credentials
+  hosts: localhost
+  gather_facts: false
+  vars:
+    jump_server_awx_credential: deveci-jump
+    remote_device_awx_credential: FlexVPN
+  tasks:
+    - name: Configure Jump Server Connection
+      ansible.builtin.ansible_connection: ssh
+      ansible.builtin.ansible_user: '{{ ansible_ssh_user | default('''') }}'
+      ansible.builtin.ansible_host: deveci-jump
+      ansible.builtin.ansible_ssh_pass: '{{ lookup(''community.general.awxcred'', jump_server_awx_credential, ''password'') }}'
+    - name: Gather Facts from Remote Device
+      hosts: 15.0.0.1
+      gather_facts: true
+      vars:
+        ansible_user: '{{ ansible_ssh_user | default('''') }}'
+        ansible_ssh_pass: '{{ lookup(''community.general.awxcred'', remote_device_awx_credential, ''password'') }}'
+      tasks:
+        - name: Display Gathered Facts
+          ansible.builtin.debug:
+            var: ansible_facts
