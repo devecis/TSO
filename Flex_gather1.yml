@@ -13,10 +13,12 @@
       delegate_to: localhost
 
     - name: Gather Facts from Cisco IOS Device
-      ansible.builtin.vars:
+      vars:
         ansible_user: forward
         ansible_ssh_common_args: "-o ProxyJump=forward@deveci-jump"
         ansible_ssh_pass: '{{ FlexVPN.credential_password }}'
-      ansible.builtin.debug:
-        var: ansible_facts
+      tasks:
+        - name: Display Gathered Facts
+          ansible.builtin.debug:
+            var: ansible_facts
       delegate_to: '{{ remote_device_ip }}'
