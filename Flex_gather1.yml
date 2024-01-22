@@ -1,7 +1,7 @@
 ---
 - name: Gather Facts from Cisco IOS Device via Jump Server with AWX Credentials
   hosts: localhost
-  gather_facts: false
+  gather_facts: true
   vars:
     jump_server_awx_credential: deveci-jump
     remote_device_ip: 15.0.0.254
