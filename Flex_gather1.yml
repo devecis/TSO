@@ -17,8 +17,10 @@
       delegate_to: '{{ remote_device_ip }}'
       environment:
         ansible_user: forward
-        ansible_ssh_common_args: '-o "ProxyJump=forward@deveci-jump"'
-        ansible_ssh_pass: '{{ lookup("ansible.builtin.credentials", remote_device_awx_credential + '.credential_password') }}'
+      environment:
+        ANSIBLE_SSH_ARGS: '-o ProxyJump=forward@deveci-jump'
+      vars:
+        ansible_ssh_pass: '{{ lookup("ansible.builtin.credentials", remote_device_awx_credential + ".credential_password") }}'
 
     - name: Display Gathered Facts
       ansible.builtin.debug:
