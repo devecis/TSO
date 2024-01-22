@@ -18,7 +18,7 @@
       environment:
         ansible_user: forward
         ansible_ssh_common_args: "-o ProxyJump=forward@deveci-jump"
-        ansible_ssh_pass: '{{ FlexVPN.credential_password }}'
+        ansible_ssh_pass: '{{ lookup("ansible.builtin.credentials", remote_device_awx_credential + '.credential_password') }}'
 
     - name: Display Gathered Facts
       ansible.builtin.debug:
