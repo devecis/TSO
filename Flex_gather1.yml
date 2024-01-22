@@ -7,10 +7,8 @@
     remote_device_awx_credential: FlexVPN
   tasks:
     - name: Configure Jump Server Connection
-      ansible.builtin.ansible_connection: ssh
-      ansible.builtin.ansible_user: forward
-      ansible.builtin.ansible_host: deveci-jump
-      ansible.builtin.ansible_password: '{{ deveci-jump.credential_password }}'
+      ansible.builtin.shell: echo "Configuring Jump Server Connection"
+      delegate_to: localhost
 
     - name: Gather Facts from Remote Device
       gather_facts: true
