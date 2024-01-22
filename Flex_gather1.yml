@@ -13,6 +13,7 @@
       delegate_to: localhost
 
     - name: Gather Facts from Cisco IOS Device
+      delegate_to: '{{ remote_device_ip }}'
       vars:
         ansible_user: forward
         ansible_ssh_common_args: "-o ProxyJump=forward@deveci-jump"
@@ -21,4 +22,3 @@
         - name: Display Gathered Facts
           ansible.builtin.debug:
             var: ansible_facts
-      delegate_to: '{{ remote_device_ip }}'
