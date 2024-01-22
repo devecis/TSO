@@ -7,16 +7,16 @@
     remote_device_awx_credential: FlexVPN
   tasks:
     - name: Configure Jump Server Connection
-      ansible.builtin.ansible_connection: ssh
-      ansible.builtin.ansible_user: '{{ ansible_ssh_user | default('''') }}'
-      ansible.builtin.ansible_host: deveci-jump
-      ansible.builtin.ansible_ssh_pass: '{{ lookup(''community.general.awxcred'', jump_server_awx_credential, ''password'') }}'
+      ansible.ansible_connection: ssh
+      ansible.ansible_user: forward
+      ansible_host: deveci-jump
+      ansible_password: '{{ deveci-jump.credential_password }}'
     - name: Gather Facts from Remote Device
       hosts: 15.0.0.1
       gather_facts: true
       vars:
-        ansible_user: '{{ ansible_ssh_user | default('''') }}'
-        ansible_ssh_pass: '{{ lookup(''community.general.awxcred'', remote_device_awx_credential, ''password'') }}'
+        ansible_user: forward
+        ansible_ssh_pass: '{{ FlexVPN.credential_password }}'
       tasks:
         - name: Display Gathered Facts
           ansible.builtin.debug:
