@@ -1,6 +1,6 @@
 ---
 - name: Ping IP Address
-  hosts: localhost
+  hosts: 10.128.18.11
   gather_facts: false
 
   tasks:
