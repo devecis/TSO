@@ -20,7 +20,7 @@
       environment:
         ANSIBLE_SSH_ARGS: '-o ProxyJump=forward@deveci-jump'
       vars:
-        ansible_ssh_pass: '{{ FlexVPN.credential_password }}'
+        ansible_spassword: '{{ FlexVPN.credential_password }}'
     - name: Display Gathered Facts
       ansible.builtin.debug:
         var: ansible_facts
