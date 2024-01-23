@@ -1,8 +1,9 @@
 ---
-- name: Ping Jump Server
-  hosts: deveci-jump
+- name: Ping IP Address
+  hosts: localhost
   gather_facts: false
 
   tasks:
-    - name: Ping Jump Server
+    - name: Ping IP Address
       ansible.builtin.ping:
+        data: "{{ hostvars['localhost'].ansible_default_ipv4.address }}"
