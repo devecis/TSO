@@ -1,9 +1,12 @@
 ---
-- name: Ping IP Address
+- name: Gather Facts from Server
   hosts: 10.128.18.11
-  gather_facts: false
+  gather_facts: true
+  vars:
+    ansible_user: forward
+    ansible_ssh_common_args: "-o ProxyJump=forward@deveci-jump"
 
   tasks:
-    - name: Ping IP Address
-      ansible.builtin.ping:
-        data: "{{ hostvars['localhost'].ansible_default_ipv4.address }}"
+    - name: Display Gathered Facts
+      ansible.builtin.debug:
+        var: ansible_facts
