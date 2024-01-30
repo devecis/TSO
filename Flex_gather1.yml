@@ -20,6 +20,8 @@
         ansible_user: forward
         ansible_ssh_common_args: "-o ProxyJump=forward@{{ jump_server_awx_credential }}"
         ansible_ssh_pass: '{{ lookup("ansible.builtin.credentials", remote_device_awx_credential + ".credential_password") }}'
+      become: yes
+      become_method: sudo  # Change 'enable' to 'sudo'
 
     - name: Display Gathered Facts
       ansible.builtin.debug:
