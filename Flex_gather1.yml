@@ -1,14 +1,27 @@
-- name: Connect to Network Device via Jump Server
-  hosts: jump_server
+---
+- name: Gather Facts from Remote Device via Jump Server with AWX Credentials
+  hosts: localhost
   gather_facts: false
-  tasks:
-    - name: Connect to Jump Server
-      ansible.builtin.ping
+  vars:
+    jump_server_awx_credential: deveci-jump
+    remote_device_ip: 15.0.0.254
+    remote_device_awx_credential: FlexVPN
 
-- name: Run NetCLI Commands on Network Device
-  hosts: network_devices
-  gather_facts: false
   tasks:
-    - name: Issue NetCLI Command
-      ansible.builtin.netmiko_send_command:
-        command_string: show version
+    - name: Configure Jump Server Connection
+      ansible.builtin.shell: echo "Configuring Jump Server Connection"
+      delegate_to: localhost
+
+    - name: Gather Facts from Cisco IOS Device
+      ansible.builtin.shell: echo "Gathering Facts from Cisco IOS Device"
+      delegate_to: '{{ remote_device_ip }}'
+      environment:
+        ansible_user: forward
+      vars:
+        ANSIBLE_SSH_ARGS: '-o ProxyJump=forward@deveci-jump'
+        ansible_ssh_pass: '{{ lookup("ansible.builtin.credentials", remote_device_awx_credential + ".credential_password") }}'
+
+    - name: Display Gathered Facts
+      ansible.builtin.debug:
+        var: ansible_facts
+      run_once: true
