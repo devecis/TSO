@@ -1,0 +1,12 @@
+---
+all:
+  children:
+    deveci-jump:
+      hosts:
+        jump-server-hostname:
+          ansible_host: 10.128.18.11
+          ansible_user: forward
+    cisco-ios:
+      hosts:
+        cisco-ios-device:
+          ansible_host: 15.0.0.254
