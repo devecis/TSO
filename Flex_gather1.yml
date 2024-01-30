@@ -8,22 +8,30 @@
     remote_device_ip: 15.0.0.254
     remote_device_awx_credential: FlexVPN
 
+---
+- name: Gather IP Information from Linux Server via Jump Server
+  hosts: localhost
+  gather_facts: false
+
+  vars:
+    jump_server_credential: deveci-jump
+    remote_server_hostname: deveci-jump
+    command_to_run: "ip a"
+
   tasks:
-    - name: Configure Jump Server Connection
-      ansible.builtin.shell: echo "Configuring Jump Server Connection"
+    - name: Log into Jump Server
+      ansible.builtin.shell: echo "Logging into Jump Server"
       delegate_to: localhost
+      run_once: true
 
-    - name: Gather Facts from Cisco IOS Device
-      ansible.builtin.shell: echo "Gathering Facts from Cisco IOS Device"
-      delegate_to: '{{ remote_device_ip }}'
+    - name: Run Command on Remote Server
+      ansible.builtin.shell: "{{ command_to_run }}"
+      delegate_to: "{{ remote_server_hostname }}"
       environment:
-        ansible_user: forward
-        ansible_ssh_common_args: "-o ProxyJump=forward@{{ jump_server_awx_credential }}"
-        ansible_password: "{{ lookup('ansible.builtin.credentials', remote_device_awx_credential + '.credential_password') }}"
-      become: yes
-      become_method: sudo
+        ANSIBLE_SSH_ARGS: "-o ProxyJump={{ jump_server_credential }}"
+      with_items: []
 
-    - name: Display Gathered Facts
+    - name: Display Command Output
       ansible.builtin.debug:
-        var: ansible_facts
+        var: ansible_stdout_lines
       run_once: true
