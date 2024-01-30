@@ -1,10 +1,14 @@
----
-- name: Your Playbook Name
-  hosts: deveci_jump
-  become: yes
-  become_method: sudo
-  gather_facts: true
-
+- name: Connect to Network Device via Jump Server
+  hosts: jump_server
+  gather_facts: false
   tasks:
-    - name: Your Task Name
-      ansible.builtin.ping:
+    - name: Connect to Jump Server
+      ansible.builtin.ping
+
+- name: Run NetCLI Commands on Network Device
+  hosts: network_devices
+  gather_facts: false
+  tasks:
+    - name: Issue NetCLI Command
+      ansible.builtin.netmiko_send_command:
+        command_string: show version

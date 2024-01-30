@@ -1,0 +1,142 @@
+[
+    {
+        "name": "A2A.fn.com",
+        "type": "SWITCH",
+        "platform": "arista_eos",
+        "collectionError": "CONNECTION_REFUSED",
+        "vendor": "ARISTA",
+        "managementIps": [
+            "15.1.0.5"
+        ]
+    },
+    {
+        "name": "A2B.fn.com",
+        "type": "SWITCH",
+        "platform": "arista_eos",
+        "collectionError": "CONNECTION_REFUSED",
+        "vendor": "ARISTA",
+        "managementIps": [
+            "15.1.0.6"
+        ]
+    },
+    {
+        "name": "C2A.fn.com",
+        "type": "ROUTER",
+        "platform": "cisco_ios",
+        "collectionError": "CONNECTION_REFUSED",
+        "vendor": "CISCO",
+        "managementIps": [
+            "15.1.0.3"
+        ]
+    },
+    {
+        "name": "C2B.fn.com",
+        "type": "ROUTER",
+        "platform": "cisco_ios",
+        "collectionError": "CONNECTION_REFUSED",
+        "vendor": "CISCO",
+        "managementIps": [
+            "15.1.0.4"
+        ]
+    },
+    {
+        "name": "CSR1.fn.com",
+        "type": "ROUTER",
+        "platform": "cisco_ios_xe",
+        "collectionError": "CONNECTION_REFUSED",
+        "vendor": "CISCO",
+        "managementIps": [
+            "15.0.0.1"
+        ]
+    },
+    {
+        "name": "CSR2.fn.com",
+        "type": "ROUTER",
+        "platform": "cisco_ios_xe",
+        "collectionError": "CONNECTION_REFUSED",
+        "vendor": "CISCO",
+        "managementIps": [
+            "15.0.0.2"
+        ]
+    },
+    {
+        "name": "CSR3.fn.com",
+        "type": "ROUTER",
+        "platform": "cisco_ios_xe",
+        "collectionError": "CONNECTION_REFUSED",
+        "vendor": "CISCO",
+        "managementIps": [
+            "15.0.0.3"
+        ]
+    },
+    {
+        "name": "internet",
+        "type": "INTERNET_SERVICE",
+        "platform": "internet_service",
+        "vendor": "FORWARD_CUSTOM"
+    },
+    {
+        "name": "netbox",
+        "type": "EXTERNAL_SOURCE",
+        "platform": "unknown",
+        "collectionError": "IO_ERROR",
+        "vendor": "UNKNOWN"
+    },
+    {
+        "name": "R1A.R-NET",
+        "type": "ROUTER",
+        "platform": "cisco_ios",
+        "collectionError": "CONNECTION_REFUSED",
+        "vendor": "CISCO",
+        "managementIps": [
+            "15.0.0.4"
+        ]
+    },
+    {
+        "name": "R1B.R-NET",
+        "type": "ROUTER",
+        "platform": "cisco_ios",
+        "collectionError": "CONNECTION_REFUSED",
+        "vendor": "CISCO",
+        "managementIps": [
+            "15.0.0.5"
+        ]
+    },
+    {
+        "name": "R2A.fn.com",
+        "type": "ROUTER",
+        "platform": "cisco_ios",
+        "collectionError": "CONNECTION_REFUSED",
+        "vendor": "CISCO",
+        "managementIps": [
+            "15.1.0.1"
+        ]
+    },
+    {
+        "name": "R2B.fn.com",
+        "type": "ROUTER",
+        "platform": "cisco_ios",
+        "collectionError": "CONNECTION_REFUSED",
+        "vendor": "CISCO",
+        "managementIps": [
+            "15.1.0.2"
+        ]
+    },
+    {
+        "name": "switch.fn.com",
+        "type": "ROUTER",
+        "platform": "cisco_ios_xe",
+        "collectionError": "CONNECTION_REFUSED",
+        "vendor": "CISCO",
+        "managementIps": [
+            "15.0.0.254"
+        ]
+    },
+    {
+        "name": "t1",
+        "type": "UNKNOWN",
+        "platform": "unknown",
+        "collectionError": "INCOMPLETE_SETUP",
+        "vendor": "UNKNOWN"
+    }
+]
