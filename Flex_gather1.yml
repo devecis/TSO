@@ -28,7 +28,7 @@
       ansible.builtin.shell: "{{ command_to_run }}"
       delegate_to: "{{ remote_server_hostname }}"
       environment:
-        ANSIBLE_SSH_ARGS: "-o ProxyJump={{ jump_server_credential }}"
+        ANSIBLE_SSH_ARGS: "{{ deveci.credential_password }}"
       with_items: []
 
     - name: Display Command Output
