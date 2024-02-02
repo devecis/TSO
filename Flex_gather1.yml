@@ -30,7 +30,8 @@
       environment:
         ANSIBLE_SSH_ARGS: "{{ deveci.credential_password }}"
       with_items: []
-
+      become: yes
+      
     - name: Display Command Output
       ansible.builtin.debug:
         var: ansible_stdout_lines
