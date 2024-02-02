@@ -13,22 +13,8 @@
       delegate_to: localhost
       run_once: true
 
-    - name: Set Remote Server Login Parameters
-      set_fact:
-        remote_login_params:
-          become: no  # Disable privilege escalation
-          ansible_user: "{{ lookup('community.general.credential', jump_server_credential).username }}"
-          ansible_ssh_common_args: "-o ProxyJump={{ remote_server_hostname }}"
+    # Comment out the next tasks and gradually reintroduce them to isolate the issue
 
-    - name: Run Command on Remote Server
-      ansible.builtin.shell:
-        cmd: "{{ command_to_run }}"
-      delegate_to: "{{ remote_server_hostname }}"
-      environment:
-        ANSIBLE_SSH_ARGS: "{{ deveci.credential_password }}"
-      with_items: "{{ remote_login_params | default([]) }}"  # Use the login parameters
-
-    - name: Display Command Output
+    - name: Display Debug Message
       ansible.builtin.debug:
-        var: ansible_stdout_lines
-      run_once: true
+        msg: "This is a debug message"
