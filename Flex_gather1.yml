@@ -1,20 +1,17 @@
-- name: Gather IP Information from Linux Server via Jump Server
+---
+- name: Log into Linux Server and Prompt for Password
   hosts: localhost
   gather_facts: false
 
   vars:
-    jump_server_credential: deveci-jump
-    remote_server_hostname: deveci-jump
-    command_to_run: "ip a"
+    remote_server_ip: deveci-jump  # Replace with your Linux server's IP
+    remote_username: forward
 
   tasks:
-    - name: Log into Jump Server
-      ansible.builtin.shell: echo "Logging into Jump Server"
+    - name: Prompt for Password
+      ansible.builtin.expect:
+        command: ssh {{ remote_username }}@{{ remote_server_ip }}
+        responses:
+          "assword.*": "{{ lookup('password', '/dev/null chars=ascii_letters,digits,punctuation length=16') }}"
       delegate_to: localhost
       run_once: true
-
-    # Comment out the next tasks and gradually reintroduce them to isolate the issue
-
-    - name: Display Debug Message
-      ansible.builtin.debug:
-        msg: "This is a debug message"
