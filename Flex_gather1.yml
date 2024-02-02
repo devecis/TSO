@@ -5,7 +5,6 @@
   vars:
     jump_server_credential: deveci-jump
     remote_server_hostname: deveci-jump
-    remote_user: forward  # Specify the desired username
     command_to_run: "ip a"
 
   tasks:
@@ -20,8 +19,9 @@
       environment:
         ANSIBLE_SSH_ARGS: "{{ deveci.credential_password }}"
       with_items: []
-      become: yes
-      become_user: "{{ remote_user }}"  # Specify the desired username for privilege escalation
+      become: no  # Disable privilege escalation
+      ansible_user: "{{ lookup('community.general.credential', jump_server_credential).username }}"
+      # Use ansible_user to specify the remote username from the credential
 
     - name: Display Command Output
       ansible.builtin.debug:
