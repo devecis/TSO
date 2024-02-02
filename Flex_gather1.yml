@@ -21,12 +21,12 @@
           ansible_ssh_common_args: "-o ProxyJump={{ remote_server_hostname }}"
 
     - name: Run Command on Remote Server
-      ansible.builtin.shell: "{{ command_to_run }}"
+      ansible.builtin.shell:
+        cmd: "{{ command_to_run }}"
       delegate_to: "{{ remote_server_hostname }}"
       environment:
         ANSIBLE_SSH_ARGS: "{{ deveci.credential_password }}"
-      with_items: []
-      vars: "{{ remote_login_params }}"  # Use the login parameters
+      with_items: "{{ remote_login_params | default([]) }}"  # Use the login parameters
 
     - name: Display Command Output
       ansible.builtin.debug:
