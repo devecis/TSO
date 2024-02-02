@@ -1,14 +1,3 @@
----
-- name: Gather Facts from Remote Device via Jump Server with AWX Credentials
-  hosts: localhost
-  gather_facts: false
-
-  vars:
-    jump_server_awx_credential: deveci-jump
-    remote_device_ip: 15.0.0.254
-    remote_device_awx_credential: FlexVPN
-
----
 - name: Gather IP Information from Linux Server via Jump Server
   hosts: localhost
   gather_facts: false
@@ -16,6 +5,7 @@
   vars:
     jump_server_credential: deveci-jump
     remote_server_hostname: deveci-jump
+    remote_user: forward  # Specify the desired username
     command_to_run: "ip a"
 
   tasks:
@@ -31,7 +21,8 @@
         ANSIBLE_SSH_ARGS: "{{ deveci.credential_password }}"
       with_items: []
       become: yes
-      
+      become_user: "{{ remote_user }}"  # Specify the desired username for privilege escalation
+
     - name: Display Command Output
       ansible.builtin.debug:
         var: ansible_stdout_lines
