@@ -13,15 +13,20 @@
       delegate_to: localhost
       run_once: true
 
+    - name: Set Remote Server Login Parameters
+      set_fact:
+        remote_login_params:
+          become: no  # Disable privilege escalation
+          ansible_user: "{{ lookup('community.general.credential', jump_server_credential).username }}"
+          ansible_ssh_common_args: "-o ProxyJump={{ remote_server_hostname }}"
+
     - name: Run Command on Remote Server
       ansible.builtin.shell: "{{ command_to_run }}"
       delegate_to: "{{ remote_server_hostname }}"
       environment:
         ANSIBLE_SSH_ARGS: "{{ deveci.credential_password }}"
       with_items: []
-      become: no  # Disable privilege escalation
-      ansible_user: "{{ lookup('community.general.credential', jump_server_credential).username }}"
-      # Use ansible_user to specify the remote username from the credential
+      vars: "{{ remote_login_params }}"  # Use the login parameters
 
     - name: Display Command Output
       ansible.builtin.debug:
