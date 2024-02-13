@@ -1,17 +1,20 @@
 ---
-- name: Log into Linux Server and Prompt for Password
+- name: Log into Linux Server and Run ip a
   hosts: localhost
   gather_facts: false
 
   vars:
-    remote_server_ip: deveci-jump  # Replace with your Linux server's IP
-    remote_username: forward
+    remote_server_host: "{{ deveci-jump }}"  # Assuming you have the IP defined for the machine
+    remote_username: "{{ machine.deveci-jump }}"
+    remote_password: "{{ machine.deveci-jump }}"
 
   tasks:
-    - name: Prompt for Password
+    - name: Log into remote server and run ip a
       ansible.builtin.expect:
-        command: ssh {{ remote_username }}@{{ remote_server_ip }}
+        command: ssh "{{ remote_username }}"@"{{ remote_server_host }}" ip a
         responses:
-          "assword.*": "{{ lookup('password', '/dev/null chars=ascii_letters,digits,punctuation length=16') }}"
-      delegate_to: localhost
-      run_once: true
+          (?i)password: "{{ remote_password }}"
+      register: ssh_output
+
+    - debug:
+        var: ssh_output.stdout_lines
