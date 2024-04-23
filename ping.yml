@@ -1,0 +1,11 @@
+---
+- name: Ping Jump Server
+  hosts: jump-server-hostname
+  tasks:
+    - name: Ping the server
+      ping:
+      register: ping_result
+
+    - name: Display ping result
+      debug:
+        msg: "{{ ping_result }}"
