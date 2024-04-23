@@ -1,6 +1,6 @@
 ---
 - name: Ping Jump Server
-  hosts: jump-server-hostname
+  hosts: jump_server_hostname
   tasks:
     - name: Ping the server
       ping:
