@@ -4,9 +4,9 @@
   gather_facts: false
 
   vars:
-    remote_server_host: "{{ deveci-jump }}"  # Assuming you have the IP defined for the machine
-    remote_username: "{{ machine.deveci-jump }}"
-    remote_password: "{{ machine.deveci-jump }}"
+    remote_server_host: "{{ deveci_jump }}"  # Assuming you have the IP defined for the machine
+    remote_username: "{{ machine.deveci_jump }}"
+    remote_password: "{{ machine.deveci_jump }}"
 
   tasks:
     - name: Log into remote server and run ip a
@@ -18,3 +18,5 @@
 
     - debug:
         var: ssh_output.stdout_lines
+
+
