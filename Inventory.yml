@@ -8,5 +8,5 @@ all:
           ansible_user: forward
     cisco_ios:
       hosts:
-        cisco-ios-device:
+        cisco_ios_device:
           ansible_host: 15.0.0.254
