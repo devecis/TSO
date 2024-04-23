@@ -3,7 +3,7 @@
   hosts: jump_server_hostname
   tasks:
     - name: Ping the server
-      ping:
+      raw: ping -c 3 10.128.18.35
       register: ping_result
 
     - name: Display ping result
