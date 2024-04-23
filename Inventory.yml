@@ -4,7 +4,7 @@ all:
     deveci-jump:
       hosts:
         jump-server-hostname:
-          ansible_host: 10.128.18.11
+          ansible_host: deveci-jump.local.forwardnetworks.com
           ansible_user: forward
     cisco-ios:
       hosts:
